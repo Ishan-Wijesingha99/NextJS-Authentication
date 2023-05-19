@@ -1,19 +1,28 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { useAuth } from '@/context/AuthContext';
 
 export default function RegisterPage() {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   // need this to change url
   const router = useRouter();
 
-  const submitHandler = async () => {
-    
+  const { signup, currentUser } = useAuth()
+
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    // client side validation
+    if(!email || !password) return
+  
+    signup(email, password)
   }
   
 

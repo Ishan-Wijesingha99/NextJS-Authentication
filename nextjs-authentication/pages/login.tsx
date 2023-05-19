@@ -4,6 +4,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -12,8 +13,14 @@ export default function LoginPage() {
   // need this to change url
   const router = useRouter();
 
+  const { login } = useAuth()
+
   const submitHandler = async () => {
-    
+    // client side validation
+    if(!email || !password) return
+
+    return login(email, password)
+
   }
   
 
