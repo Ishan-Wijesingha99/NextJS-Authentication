@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useAuth } from '@/context/AuthContext';
 
+
+
 export default function RegisterPage() {
 
   const [email, setEmail] = useState('');
@@ -19,10 +21,19 @@ export default function RegisterPage() {
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    // client side validation
+    // client side validation to check if form inputs aren't empty
     if(!email || !password) return
   
-    signup(email, password)
+    try {
+      // register new user, which also signs them in
+      await signup(email, password)
+
+      // if register function was successful, redirect user to home page
+      router.push("/")
+    } catch (error) {
+      console.log(error)
+    }
+
   }
   
 

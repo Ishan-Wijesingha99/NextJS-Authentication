@@ -15,10 +15,9 @@ interface AuthContextProps {
   logout: () => void;
 }
 
+
+
 export const AuthContext = React.createContext<AuthContextProps | any >(null);
-
-
-
 export const useAuth = () => {
   return useContext(AuthContext)
 }
@@ -46,8 +45,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signup,
     logout
   };
-
-  console.log(value)
 
   return (
     <AuthContext.Provider value={value}>

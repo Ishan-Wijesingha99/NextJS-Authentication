@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useAuth } from '@/context/AuthContext';
+
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -15,12 +17,21 @@ export default function LoginPage() {
 
   const { login } = useAuth()
 
-  const submitHandler = async () => {
-    // client side validation
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    // client side validation to check if form inputs aren't empty
     if(!email || !password) return
 
-    return login(email, password)
+    try {
+      // log the user in
+      await login(email, password)
 
+      // if login function was successful, redirect user to home page
+      router.push("/");
+    } catch (error) {
+      console.log(error)
+    }
   }
   
 

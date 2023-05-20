@@ -2,9 +2,12 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import { useAuth } from '@/context/AuthContext'
 
-const inter = Inter({ subsets: ['latin'] })
+
 
 export default function Home() {
+
+  const { currentUser } = useAuth()
+
 
   return (
     <>
@@ -15,7 +18,22 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      
+      <div>
+        {/* if currentUser exists as a global state, only then render welcome message, if not, render login/register message */}
+
+        { 
+          currentUser
+          ?
+          (
+            <h1>Welcome!</h1>
+          )
+          :
+          (
+            <h1>Register or Log In</h1>
+          ) 
+        }
+
+      </div>
     </>
   )
 }
