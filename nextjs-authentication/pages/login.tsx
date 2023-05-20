@@ -4,6 +4,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 
 
@@ -15,7 +16,9 @@ export default function LoginPage() {
   // need this to change url
   const router = useRouter();
 
-  const { login } = useAuth()
+  const { login, currentUser } = useAuth()
+
+
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -45,45 +48,61 @@ export default function LoginPage() {
 
       <div>
 
-        <Form
-        onSubmit={submitHandler}
-        style={{ width: "80%", margin: "2rem auto"}}
-        >
+        {
+          currentUser
+          ?
+          (
+            <div className='flex flex-column m-4 justify-content-center text-center'>
+              <h1 className='pt-4'>You are already logged in! Click the button below to go home</h1>
 
-          <h1>Login</h1>
+              <Link href="/" className='already-logged-in-link mt-4'>
+                Home
+              </Link>
+            </div>
+          )
+          :
+          (
+            <Form
+            onSubmit={submitHandler}
+            style={{ width: "80%", margin: "2rem auto"}}
+            >
 
-          <FloatingLabel
-          controlId="floatingInput"
-          label="Email address"
-          className="my-4"
-          >
-            <Form.Control
-            type="text"
-            placeholder="name@example.com"
-            onChange={e => setEmail(e.target.value)}
-            />
-          </FloatingLabel>
+              <h1>Login</h1>
 
-          <FloatingLabel
-          controlId="floatingPassword"
-          label="Password"
-          className="my-4"
-          >
-            <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={e => setPassword(e.target.value)}
-            />
-          </FloatingLabel>
+              <FloatingLabel
+              controlId="floatingInput"
+              label="Email address"
+              className="my-4"
+              >
+                <Form.Control
+                type="text"
+                placeholder="name@example.com"
+                onChange={e => setEmail(e.target.value)}
+                />
+              </FloatingLabel>
 
-          <Button
-          type="submit"
-          variant='primary'
-          >
-            Log In
-          </Button>
+              <FloatingLabel
+              controlId="floatingPassword"
+              label="Password"
+              className="my-4"
+              >
+                <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={e => setPassword(e.target.value)}
+                />
+              </FloatingLabel>
 
-        </Form>
+              <Button
+              type="submit"
+              variant='primary'
+              >
+                Log In
+              </Button>
+
+            </Form>
+          )
+        }
 
       </div>
     </>

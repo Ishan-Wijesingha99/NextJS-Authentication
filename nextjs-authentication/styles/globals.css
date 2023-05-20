@@ -3,3 +3,20 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.already-logged-in-link {
+  background-color: red;
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.already-logged-in-link:hover {
+  color: red;
+  background-color: black;
+  transition: 300ms;
+}
