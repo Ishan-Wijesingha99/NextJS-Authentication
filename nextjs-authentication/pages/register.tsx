@@ -19,6 +19,8 @@ export default function RegisterPage() {
 
   const { signup, currentUser } = useAuth()
 
+
+
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -99,6 +101,8 @@ export default function RegisterPage() {
               >
                 Register
               </Button>
+
+              
 
             </Form>
           )

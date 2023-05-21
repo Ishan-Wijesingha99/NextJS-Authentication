@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import GoogleButton from 'react-google-button'
 
 
 
@@ -16,7 +17,16 @@ export default function LoginPage() {
   // need this to change url
   const router = useRouter();
 
-  const { login, currentUser } = useAuth()
+  const { login, currentUser, googleSignIn } = useAuth()
+
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
 
@@ -99,6 +109,11 @@ export default function LoginPage() {
               >
                 Log In
               </Button>
+
+              <GoogleButton
+              style={{ marginTop: '1rem' }}
+              onClick={handleGoogleSignIn}
+              />
 
             </Form>
           )
